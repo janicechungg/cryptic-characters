@@ -3,10 +3,11 @@ const app = express();
 const axios = require('axios');
 const path = require('path');
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const PORT = 3000;
 
+app.use(express.json());
 app.use(cors());
-
 
 //Gets the word from API
 app.get('/words', async (req, res) => {
@@ -29,6 +30,18 @@ function scrambleWord(word) {
     }
     return scrambledWord;
 }
+
+app.post('/guess', (req, res) => {
+    console.log('Request received with body!', req.body);
+    if (req.body.userGuess) {
+        console.log('Received guess:', req.body.userGuess);
+        res.send({ message: 'Guess receieved', guess: req.body.userGuess});
+    } else {
+        console.log('No guess received, sending 400 error.'); // This will confirm flow control
+        res.status(400).send('No guess provided :(');
+    }
+})
+
 
 app.listen(PORT, () => {
     console.log(`Backend is running on http://localhost:${PORT}`);
