@@ -17,7 +17,7 @@ app.get('/words', async (req, res) => {
         const response = await axios.get('https://random-word-api.herokuapp.com/word');
         word = response.data[0]
         res.send(scrambleWord(word));
-        console.log(word);
+        //console.log(word);
     } catch (error) {
         console.error('Error fetching data:', error);
         res.status(500).send('Could not fetch data');
@@ -26,6 +26,7 @@ app.get('/words', async (req, res) => {
 
 //Scrambles the word
 function scrambleWord(word) {
+    console.log(word)
     var scrambledWord = '';
     word = word.split('');
     while (word.length > 0) {
