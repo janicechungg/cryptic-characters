@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import Body from './Components/Body';
 import {useState, useEffect} from 'react';
@@ -6,7 +7,7 @@ import Axios from 'axios';
 
 function App () {
   return (
-    <div className = "Game">
+    <div className="Game app-background">
       <BrowserRouter>
         <Routes>
           <Route path = "/" element = {<Game />} />
@@ -22,7 +23,7 @@ function Game() {
   const navigate = useNavigate();
   const[word, setWord] = useState("");
   const[guess, setGuess] = useState("");
-  const[checkWord, setCheckWord] = useState("");
+  //const[checkWord, setCheckWord] = useState("");
   const[score, setScore] = useState(0)
   const[lives, setLives] = useState(3);
 
@@ -62,7 +63,7 @@ function Game() {
           setWord(response.data.newWord);
         }
         else {
-          setCheckWord(response.data.message);
+          //setCheckWord(response.data.message);
           setLives(lives => lives - 1);
         }
         setGuess("");
@@ -76,18 +77,30 @@ function Game() {
 
   return (
     <div className="App">
-      <Body/>
-      <button onClick = {getNewWord}>New Word</button>
-      <h1>{word}</h1>
+    
+      <div className="vh-100 d-flex flex-column justify-content-center align-items-center">
+        
+      <h1 className="mb-3 text-center text-white" style={{ marginTop: "-20vh" }}>Cryptic Characters</h1> 
+        <div className="p-5 rounded-3 text-center shadow" style={{ backgroundColor: '#F4F1DE', width: '80%', maxWidth: '600px' }}>
+      <div className="display-4 mb-4">{word}</div>
       <input type = "text" 
+      className = "form-control text-center mb-2"
       placeholder = "Enter guess..."
       value = {guess}
       onChange = {handleInputChange}
       ></input>
-      <button onClick = {handleSubmit}>Submit</button>
-      <h1>{checkWord}</h1>
+
+      <div className="mb-3">
+      <button className = "btn new-word-btn" onClick = {getNewWord}>New Word</button>
+      <button className = "btn submit-btn" onClick = {handleSubmit}>Submit</button>
+      </div>
+      <div className = "mt-3">
+      <h2>Lives</h2>
+      <h2 className = "p-10"> {'● '.repeat(lives)}</h2>
       <h2>Score: {score}</h2>
-      <h2>Lives: {lives}</h2>
+      </div>
+      </div>
+    </div>
     </div>
   );
 }
@@ -95,7 +108,9 @@ function Game() {
 function Congrats() {
   return (
     <div className = "Congrats">
-      <h1>YOU WON THE GAME</h1>
+            <div className=" d-flex min-vh-100 d-flex justify-content-center align-items-center text-white">
+      <h1>YOU WON THE GAME.</h1>
+      </div>
     </div>
   )
 }
@@ -103,9 +118,13 @@ function Congrats() {
 function GameOver() {
   return (
     <div className = "GameOver">
-      <h1>WOMP WOMP</h1>
+            <div className=" d-flex min-vh-100 d-flex justify-content-center align-items-center text-white">
+      <h1>WOMP WOMP!</h1>
+      </div>
     </div>
   )
 }
+
+
 
 export default App;
