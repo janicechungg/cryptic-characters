@@ -32,7 +32,7 @@ button {
 }
 
 /* App.css */
-.new-word-btn {
+.new-word-btn, .hint-btn {
     background-color: #E07A5F; /* Terracotta color */
     color: white;
     border: none;
